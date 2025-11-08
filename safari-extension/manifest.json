@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "EventScan - Smart Event Scanner",
+  "name": "zro-day - Smart Event Scanner",
   "version": "1.0",
   "description": "Scan web pages for events and add them to your calendar",
   "permissions": [
@@ -20,7 +20,7 @@
   ],
   "browser_action": {
     "default_popup": "popup.html",
-    "default_title": "EventScan"
+    "default_title": "zro-day"
   },
   "icons": {
     "16": "icons/icon16.png",

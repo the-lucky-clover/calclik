@@ -1,6 +1,6 @@
-# EventScan - Smart Event Scanner
+# zro-day - Smart Event Scanner
 
-EventScan is a browser extension that scans web pages for events and adds them to your calendar using AI-powered detection. Available for Chrome and Safari (Mac App Store).
+zro-day is a browser extension that scans web pages for events and adds them to your calendar using AI-powered detection. Available for Chrome and Safari (Mac App Store).
 
 ## Features
 
@@ -31,7 +31,7 @@ calendare/
 The extension uses OpenAI API for event detection. To set up:
 
 1. Get an API key from [OpenAI](https://platform.openai.com/api-keys)
-2. Click the Calendare extension icon
+2. Click the zro-day extension icon
 3. Enter your API key in the popup and save
 
 ### Reminders Integration Setup (Chrome)
@@ -157,7 +157,7 @@ The extension uses OpenAI's GPT-3.5-turbo for event extraction. The prompt is de
 
 ## Calendar Platform Integration
 
-EventScan supports multiple calendar platforms:
+zro-day supports multiple calendar platforms:
 
 ### macOS (Native)
 - **Calendar**: iCal file download for import
