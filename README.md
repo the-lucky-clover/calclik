@@ -1,6 +1,6 @@
-# zro-day - Smart Event Scanner
+# CalClik - Smart Event Scanner
 
-zro-day is a browser extension that scans web pages for events and adds them to your calendar using AI-powered detection. Available for Chrome and Safari (Mac App Store).
+CalClik is a privacy-first browser extension that scans web pages for events and adds them to your calendar using local AI-powered detection. No API keys required - everything runs in your browser.
 
 ## Features
 
@@ -26,13 +26,13 @@ calendare/
 3. Click "Load unpacked" and select the `chrome-extension` folder
 4. The extension will be installed and ready to use
 
-### API Key Setup
+### Free AI Processing
 
-The extension uses OpenAI API for event detection. To set up:
+CalClik uses local AI models for event detection - no API keys required:
 
-1. Get an API key from [OpenAI](https://platform.openai.com/api-keys)
-2. Click the zro-day extension icon
-3. Enter your API key in the popup and save
+1. Click the CalClik extension icon
+2. The AI models will download automatically on first use
+3. All processing happens locally in your browser for maximum privacy
 
 ### Reminders Integration Setup (Chrome)
 
@@ -149,32 +149,33 @@ wrangler pages secret put API_KEY
 
 ## AI Integration
 
-The extension uses OpenAI's GPT-3.5-turbo for event extraction. The prompt is designed to:
+The extension uses Hugging Face Transformers.js for local event extraction:
 
-- Extract event titles, dates, times, locations
-- Handle various date formats
-- Provide structured JSON output
+- Named Entity Recognition (NER) for extracting event details
+- Local processing - no data sent to external servers
+- Works offline after initial model download
+- Automatic extraction of titles, dates, times, and locations
 
 ## Calendar Platform Integration
 
 zro-day supports multiple calendar platforms:
 
 ### macOS (Native)
+
 - **Calendar**: iCal file download for import
-- **Reminders**: Native messaging host with AppleScript for automatic creation
+- **Reminders**: Native host integration with AppleScript
 
 ### Google Calendar
+
 - Direct integration via calendar.google.com event creation URLs
-- Pre-filled event details for one-click addition
 
 ### Outlook
+
 - Integration via outlook.live.com calendar compose URLs
-- Seamless event creation in Outlook web interface
 
 ### Cross-Platform Support
+
 - Chrome Extension: All platforms supported
-- Safari Extension: All platforms supported
-- No account linking required - uses web URLs for Google/Outlook
 
 ## Monetization
 
@@ -204,4 +205,4 @@ MIT License - see LICENSE file for details
 
 ## Support
 
-For support, please email support@calendare.app or visit our website.
+For support, please email <support@calendare.app> or visit our website.

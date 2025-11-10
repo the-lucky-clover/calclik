@@ -2,23 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const scanBtn = document.getElementById('scanBtn');
   const loading = document.getElementById('loading');
   const eventsDiv = document.getElementById('events');
-  const apiKeyInput = document.getElementById('apiKey');
-  const saveKeyBtn = document.getElementById('saveKey');
   const enableRemindersCheckbox = document.getElementById('enableReminders');
 
   // Load saved settings
-  chrome.storage.sync.get(['openaiApiKey', 'enableReminders'], (result) => {
-    if (result.openaiApiKey) {
-      apiKeyInput.value = result.openaiApiKey;
-    }
+  chrome.storage.sync.get(['enableReminders'], (result) => {
     enableRemindersCheckbox.checked = result.enableReminders || false;
   });
 
-  saveKeyBtn.addEventListener('click', () => {
-    const key = apiKeyInput.value;
+  // Save reminders setting
+  enableRemindersCheckbox.addEventListener('change', () => {
     const enableReminders = enableRemindersCheckbox.checked;
-    chrome.storage.sync.set({ openaiApiKey: key, enableReminders: enableReminders }, () => {
-      alert('Settings saved');
+    chrome.storage.sync.set({ enableReminders: enableReminders }, () => {
+      console.log('Reminders setting saved');
     });
   });
 

@@ -11,7 +11,8 @@
     "nativeMessaging"
   ],
   "host_permissions": [
-    "https://api.openai.com/*"
+    "https://cdn.jsdelivr.net/*",
+    "https://huggingface.co/*"
   ],
   "background": {
     "service_worker": "background.js"
