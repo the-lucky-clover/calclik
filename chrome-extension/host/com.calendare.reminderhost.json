@@ -1,7 +1,0 @@
-{
-  "name": "com.calendare.reminderhost",
-  "description": "Native messaging host for Calendare to create reminders",
-  "path": "/Users/pounds_1/Development/Calendare/chrome-extension/host/host.js",
-  "type": "stdio",
-  "allowed_origins": ["chrome-extension://YOUR_EXTENSION_ID_HERE/"]
-}

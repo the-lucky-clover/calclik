@@ -1,4 +1,4 @@
-# 🚀 CalClik Deployment Guide
+# 🚀 CALCLiK Deployment Guide
 
 ## Complete Tech Stack Deployment (Free Tier)
 
@@ -26,7 +26,7 @@
 3. **Connect GitHub Repository**
    - Choose "GitHub" as git provider
    - Authorize Cloudflare to access your repositories
-   - Select repository: `the-lucky-clover/calclik`
+   - Select repository: `the-lucky-clover/CALCLiK`
    - Choose branch: `master`
 
 ### 1.2 Configure Build Settings
@@ -45,29 +45,29 @@ Build Configuration:
 
 - Click **"Save and Deploy"**
 - Deployment will take 2-3 minutes
-- You'll get a temporary URL: `https://calclik-xyz.pages.dev`
+- You'll get a temporary URL: `https://CALCLiK-xyz.pages.dev`
 
 ---
 
-## 🔗 Step 2: Custom Domain Setup (CalClik.com)
+## 🔗 Step 2: Custom Domain Setup (CALCLiK.com)
 
 ### 2.1 Register Domain on Spaceship.com
 
 1. **Visit Spaceship.com**
    - Go to [spaceship.com](https://spaceship.com)
-   - Search for "calclik.com"
+   - Search for "CALCLiK.com"
    - Add to cart and complete purchase (~$10-15/year)
 
 2. **Access Domain Management**
    - Login to Spaceship dashboard
-   - Go to "My Domains" → "calclik.com"
+   - Go to "My Domains" → "CALCLiK.com"
 
 ### 2.2 Configure DNS in Cloudflare
 
 1. **Add Domain to Cloudflare**
    ```
    Cloudflare Dashboard → Websites → Add a Site
-   Enter: calclik.com
+   Enter: CALCLiK.com
    Choose: Free plan
    ```
 
@@ -88,21 +88,21 @@ Build Configuration:
 
 1. **In Cloudflare Pages Dashboard**
    ```
-   Pages → calclik project → Custom domains → Set up a custom domain
+   Pages → CALCLiK project → Custom domains → Set up a custom domain
    ```
 
 2. **Add Domain Records**
    ```
-   Domain: calclik.com
+   Domain: CALCLiK.com
    Type: CNAME
-   Target: calclik-xyz.pages.dev (your actual Pages URL)
+   Target: CALCLiK-xyz.pages.dev (your actual Pages URL)
    ```
 
 3. **Add WWW Redirect (Optional)**
    ```
-   Domain: www.calclik.com  
+   Domain: www.CALCLiK.com  
    Type: CNAME
-   Target: calclik.com
+   Target: CALCLiK.com
    ```
 
 ---
@@ -112,7 +112,7 @@ Build Configuration:
 ### 3.1 Enable SSL (Auto-configured)
 - Cloudflare automatically provisions SSL certificates
 - Wait 10-15 minutes for SSL activation
-- Verify HTTPS works: `https://calclik.com`
+- Verify HTTPS works: `https://CALCLiK.com`
 
 ### 3.2 Security Settings (Recommended)
 ```yaml
@@ -129,7 +129,7 @@ SSL/TLS Settings:
 
 ### 4.1 Enable Cloudflare Analytics (Free)
 ```
-Cloudflare Dashboard → calclik.com → Analytics → Web Analytics
+Cloudflare Dashboard → CALCLiK.com → Analytics → Web Analytics
 Enable: Browser Insights (free tier)
 ```
 
@@ -167,13 +167,13 @@ Branch name pattern: master
 ```
 1. Create Chrome Developer Account ($5 one-time fee)
 2. Package extension: ./build-extension.sh
-3. Upload calclik-chrome-extension.zip
+3. Upload CALCLiK-chrome-extension.zip
 4. Complete store listing with screenshots
 5. Submit for review (7-14 days)
 ```
 
 ### 6.2 Direct Distribution (Current)
-- **Download Link**: `https://calclik.com/calclik-chrome-extension.zip`
+- **Download Link**: `https://CALCLiK.com/CALCLiK-chrome-extension.zip`
 - **Installation**: Documented on landing page
 - **Updates**: Manual download of new versions
 
@@ -199,13 +199,13 @@ Tools:
 ## 🎯 Step 8: Post-Deployment Checklist
 
 ### ✅ Domain Verification
-- [ ] `calclik.com` loads correctly
-- [ ] `www.calclik.com` redirects to `calclik.com`
+- [ ] `CALCLiK.com` loads correctly
+- [ ] `www.CALCLiK.com` redirects to `CALCLiK.com`
 - [ ] HTTPS certificate active (green lock)
 - [ ] All page sections load properly
 
 ### ✅ Functionality Tests
-- [ ] Download button works (`calclik-chrome-extension.zip`)
+- [ ] Download button works (`CALCLiK-chrome-extension.zip`)
 - [ ] Installation tabs function correctly  
 - [ ] Mobile responsive design
 - [ ] Page load speed < 3 seconds
@@ -244,7 +244,7 @@ Tools:
 | GitHub | Free | $0 |
 | Cloudflare Pages | Free | $0 |
 | Cloudflare DNS | Free | $0 |
-| CalClik.com Domain | Annual | ~$1.25/month |
+| CALCLiK.com Domain | Annual | ~$1.25/month |
 | **Total** | | **~$1.25/month** |
 
 ---
@@ -255,9 +255,9 @@ Tools:
 2. **Commit**: `git commit -m "Update description"`
 3. **Push**: `git push origin master`
 4. **Auto-Deploy**: Cloudflare automatically deploys in ~2 minutes
-5. **Verify**: Check `https://calclik.com` for changes
+5. **Verify**: Check `https://CALCLiK.com` for changes
 
 ---
 
 *Last Updated: November 10, 2025*
-*CalClik v2.0 - Privacy-First Event Scanner*
+*CALCLiK v2.0 - Privacy-First Event Scanner*

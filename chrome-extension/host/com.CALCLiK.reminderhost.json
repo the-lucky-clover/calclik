@@ -1,0 +1,7 @@
+{
+  "name": "com.calendare.reminderhost",
+  "description": "Native messaging host for CALCLiK to create reminders",
+  "path": "/Users/pounds_1/Development/CALCLiK/chrome-extension/host/host.js",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://YOUR_EXTENSION_ID_HERE/"]
+}

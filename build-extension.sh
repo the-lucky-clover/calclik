@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Create CalClik Chrome Extension Package
+# Create CALCLiK Chrome Extension Package
 # Run this script to create a distributable ZIP file
 
-echo "📦 Creating CalClik Chrome Extension Package..."
+echo "📦 Creating CALCLiK Chrome Extension Package..."
 
 # Create a temporary directory for packaging
-TEMP_DIR="calclik-extension-temp"
-ZIP_NAME="calclik-chrome-extension.zip"
+TEMP_DIR="CALCLiK-extension-temp"
+ZIP_NAME="CALCLiK-chrome-extension.zip"
 
 # Remove existing temp directory and zip file
 rm -rf "$TEMP_DIR"
@@ -62,7 +62,7 @@ fi
 
 # Create README for users
 cat > "$TEMP_DIR/README.txt" << 'EOF'
-CalClik - Smart Event Scanner
+CALCLiK - Smart Event Scanner
 ============================
 
 Installation Instructions:
@@ -70,7 +70,7 @@ Installation Instructions:
 2. Open Chrome and go to chrome://extensions/
 3. Enable "Developer mode" (toggle in top right)
 4. Click "Load unpacked" and select this folder
-5. Click the CalClik icon in your toolbar to start scanning!
+5. Click the CALCLiK icon in your toolbar to start scanning!
 
 For Brave Browser:
 - Follow the same steps but go to brave://extensions/
@@ -81,7 +81,7 @@ Features:
 - Works offline after installation
 - Supports multiple calendar platforms
 
-Support: Visit calclik.app for more information
+Support: Visit CALCLiK.app for more information
 EOF
 
 # Create the ZIP file

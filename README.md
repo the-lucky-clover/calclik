@@ -1,6 +1,6 @@
-# CalClik - Smart Event Scanner
+# CALCLiK - Smart Event Scanner
 
-CalClik is a privacy-first browser extension that scans web pages for events and adds them to your calendar using local AI-powered detection. No API keys required - everything runs in your browser.
+CALCLiK is a privacy-first browser extension that scans web pages for events and adds them to your calendar using local AI-powered detection. No API keys required - everything runs in your browser.
 
 ## Features
 
@@ -28,9 +28,9 @@ calendare/
 
 ### Free AI Processing
 
-CalClik uses local AI models for event detection - no API keys required:
+CALCLiK uses local AI models for event detection - no API keys required:
 
-1. Click the CalClik extension icon
+1. Click the CALCLiK extension icon
 2. The AI models will download automatically on first use
 3. All processing happens locally in your browser for maximum privacy
 

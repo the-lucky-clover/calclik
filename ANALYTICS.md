@@ -1,10 +1,10 @@
-# CalClik Telemetry System
+# CALCLiK Telemetry System
 
 ## Anonymous Usage Analytics Implementation
 
 ### 🔒 Privacy-First Approach
 
-CalClik's telemetry system is designed with privacy as the top priority:
+CALCLiK's telemetry system is designed with privacy as the top priority:
 
 - **No Personal Data**: We never collect names, emails, IP addresses, or any identifying information
 - **Anonymous Sessions**: Each session gets a random ID that cannot be linked to users
@@ -38,7 +38,7 @@ CalClik's telemetry system is designed with privacy as the top priority:
 {
   event: 'download_click',
   data: {
-    filename: 'calclik-chrome-extension.zip',
+    filename: 'CALCLiK-chrome-extension.zip',
     buttonText: 'Download for Chrome',
     buttonLocation: { x: 640, y: 480, section: 'hero' }
   }
@@ -80,7 +80,7 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': 'https://calclik.com',
+          'Access-Control-Allow-Origin': 'https://CALCLiK.com',
           'Access-Control-Allow-Methods': 'POST',
           'Access-Control-Allow-Headers': 'Content-Type'
         }
@@ -108,7 +108,7 @@ export default {
         return new Response(JSON.stringify({ success: true }), {
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://calclik.com'
+            'Access-Control-Allow-Origin': 'https://CALCLiK.com'
           }
         });
         
@@ -212,8 +212,8 @@ GROUP BY DATE(timestamp);
 ### 1. Deploy Telemetry Endpoint
 ```bash
 # Create Cloudflare Worker
-wrangler generate calclik-analytics
-cd calclik-analytics
+wrangler generate CALCLiK-analytics
+cd CALCLiK-analytics
 wrangler publish
 
 # Or deploy to your preferred platform
@@ -222,7 +222,7 @@ wrangler publish
 ### 2. Update Analytics URL
 ```javascript
 // In script.js, update the endpoint
-this.endpoint = 'https://analytics.calclik.com/telemetry';
+this.endpoint = 'https://analytics.CALCLiK.com/telemetry';
 ```
 
 ### 3. Configure Database
@@ -257,8 +257,8 @@ const analytics = await fetch('/api/analytics/summary')
 ### Local Testing
 ```javascript
 // Test analytics in browser console
-calclikAnalytics.track('test_event', { source: 'manual_test' });
-console.log('Stored events:', JSON.parse(localStorage.getItem('calclik-analytics-events')));
+CALCLiKAnalytics.track('test_event', { source: 'manual_test' });
+console.log('Stored events:', JSON.parse(localStorage.getItem('CALCLiK-analytics-events')));
 ```
 
 ### Privacy Compliance

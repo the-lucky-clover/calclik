@@ -1,9 +1,9 @@
-# 🚀 CalClik.com Domain Setup - Spaceship.com Guide
+# 🚀 CALCLiK.com Domain Setup - Spaceship.com Guide
 
 ## 🌐 Live Deployment Status
 
-✅ **Successfully Deployed**: https://19a76ed5.calclik.pages.dev  
-🔄 **Next Step**: Connect CalClik.com custom domain
+✅ **Successfully Deployed**: https://19a76ed5.CALCLiK.pages.dev  
+🔄 **Next Step**: Connect CALCLiK.com custom domain
 
 ---
 
@@ -16,14 +16,14 @@
 - [x] Extension download working
 
 ### 🔄 Next Steps (15 minutes)
-- [ ] Register CalClik.com on Spaceship.com
+- [ ] Register CALCLiK.com on Spaceship.com
 - [ ] Configure Cloudflare DNS
 - [ ] Connect custom domain
 - [ ] Verify SSL certificate
 
 ---
 
-## 🛒 Step 1: Register CalClik.com Domain
+## 🛒 Step 1: Register CALCLiK.com Domain
 
 ### 1.1 Visit Spaceship.com
 ```
@@ -35,7 +35,7 @@
 ### 1.2 Domain Search & Purchase
 1. **Search for Domain**
    ```
-   Search: "calclik.com"
+   Search: "CALCLiK.com"
    Check availability (likely available)
    ```
 
@@ -57,7 +57,7 @@
 
 ### 2.1 Access Domain Management
 ```
-Login to Spaceship Dashboard → My Domains → calclik.com
+Login to Spaceship Dashboard → My Domains → CALCLiK.com
 ```
 
 ### 2.2 Change Nameservers
@@ -75,7 +75,7 @@ Login to Spaceship Dashboard → My Domains → calclik.com
 # Go to Cloudflare Dashboard
 https://dash.cloudflare.com → Websites → Add a Site
 
-Domain: calclik.com
+Domain: CALCLiK.com
 Plan: Free ($0/month) ✅
 ```
 
@@ -94,7 +94,7 @@ NS2: nina.ns.cloudflare.com
 
 ### 4.1 Update Spaceship.com Nameservers
 ```
-Spaceship Dashboard → calclik.com → DNS Management
+Spaceship Dashboard → CALCLiK.com → DNS Management
 ```
 
 **Change from:**
@@ -120,20 +120,20 @@ nina.ns.cloudflare.com
 
 ### 5.1 Add Custom Domain
 ```
-Cloudflare Pages → calclik project → Custom domains → Set up a custom domain
+Cloudflare Pages → CALCLiK project → Custom domains → Set up a custom domain
 ```
 
 ### 5.2 Domain Configuration
 ```
-Domain: calclik.com
+Domain: CALCLiK.com
 Type: Custom domain (not subdomain)
 ```
 
 ### 5.3 DNS Records (Auto-created)
 ```
 Type: CNAME
-Name: calclik.com
-Target: 19a76ed5.calclik.pages.dev
+Name: CALCLiK.com
+Target: 19a76ed5.CALCLiK.pages.dev
 Proxy: Enabled (orange cloud) ☁️
 ```
 
@@ -144,7 +144,7 @@ Proxy: Enabled (orange cloud) ☁️
 ### 6.1 SSL Certificate
 - **Status**: Auto-provisioned by Cloudflare
 - **Time**: 10-15 minutes after DNS activation  
-- **Verification**: Green lock icon at https://calclik.com
+- **Verification**: Green lock icon at https://CALCLiK.com
 
 ### 6.2 Security Headers (Already configured)
 ```
@@ -161,15 +161,15 @@ Proxy: Enabled (orange cloud) ☁️
 ### 7.1 DNS Propagation Check
 ```bash
 # Test from terminal
-dig calclik.com
+dig CALCLiK.com
 
 # Online tools
-https://whatsmydns.net → Enter: calclik.com
+https://whatsmydns.net → Enter: CALCLiK.com
 ```
 
 ### 7.2 Website Functionality Test
 ```
-✅ https://calclik.com loads
+✅ https://CALCLiK.com loads
 ✅ Download button works  
 ✅ Installation instructions visible
 ✅ Mobile responsive
@@ -182,7 +182,7 @@ https://whatsmydns.net → Enter: calclik.com
 
 ### 8.1 Domain Lock (Recommended)
 ```
-Spaceship Dashboard → calclik.com → Domain Settings
+Spaceship Dashboard → CALCLiK.com → Domain Settings
 Enable: Domain Lock (prevents unauthorized transfers)
 ```
 
@@ -224,7 +224,7 @@ Renewal: 30 days before expiration
 ### Issue 3: Website shows Cloudflare error
 **Solution**:
 ```
-1. Verify Pages deployment is active: https://19a76ed5.calclik.pages.dev
+1. Verify Pages deployment is active: https://19a76ed5.CALCLiK.pages.dev
 2. Check custom domain settings in Cloudflare Pages
 3. Ensure CNAME record points to correct .pages.dev URL
 ```
@@ -253,15 +253,15 @@ Renewal: 30 days before expiration
 
 ### Production URLs (After domain setup)
 ```
-🌐 Main Site: https://calclik.com
-📱 Mobile: https://calclik.com (responsive)  
-⬇️  Extension: https://calclik.com/calclik-chrome-extension.zip
+🌐 Main Site: https://CALCLiK.com
+📱 Mobile: https://CALCLiK.com (responsive)  
+⬇️  Extension: https://CALCLiK.com/CALCLiK-chrome-extension.zip
 ```
 
 ### Development/Backup URLs
 ```
-🧪 Cloudflare: https://19a76ed5.calclik.pages.dev
-📦 GitHub: https://github.com/the-lucky-clover/calclik
+🧪 Cloudflare: https://19a76ed5.CALCLiK.pages.dev
+📦 GitHub: https://github.com/the-lucky-clover/CALCLiK
 ```
 
 ---
@@ -270,7 +270,7 @@ Renewal: 30 days before expiration
 
 | Service | Cost | Billing |
 |---------|------|---------|
-| CalClik.com domain (Spaceship) | $12-15 | Annual |
+| CALCLiK.com domain (Spaceship) | $12-15 | Annual |
 | Cloudflare Pages | $0 | Free forever |
 | Cloudflare DNS | $0 | Free forever |
 | GitHub hosting | $0 | Free forever |
@@ -285,12 +285,12 @@ Renewal: 30 days before expiration
 🔄 Domain purchase (5 minutes): Register on Spaceship.com  
 🔄 DNS setup (10 minutes): Configure Cloudflare + Spaceship
 ⏳ DNS propagation (2-24 hours): Automatic, no action needed
-✅ Final result: CalClik.com fully operational
+✅ Final result: CALCLiK.com fully operational
 ```
 
 ---
 
-**🎉 Congratulations! CalClik will be live at CalClik.com within 24 hours!**
+**🎉 Congratulations! CALCLiK will be live at CALCLiK.com within 24 hours!**
 
 *Last Updated: November 10, 2025*  
-*Deployment URL: https://19a76ed5.calclik.pages.dev*
+*Deployment URL: https://19a76ed5.CALCLiK.pages.dev*
