@@ -2047,6 +2047,151 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize enhanced interactions
   initializeEnhancedInteractions();
   
+  // Initialize Framer Motion animations
+  initializeFramerMotionAnimations();
+  
   // Initialize modal functionality
   console.log('Enhanced CALCLiK with advanced animations initialized');
 });
+
+// Framer Motion Animations
+function initializeFramerMotionAnimations() {
+  // Check if Framer Motion is loaded
+  if (typeof Motion === 'undefined') {
+    console.warn('Framer Motion not loaded, skipping animations');
+    return;
+  }
+
+  // Animation variants
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
+  };
+
+  const scaleIn = {
+    initial: { opacity: 0, scale: 0.95 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }
+  };
+
+  const flyInScale = {
+    initial: { opacity: 0, scale: 0.9, y: 40 },
+    animate: { opacity: 1, scale: 1, y: 0 },
+    transition: { duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }
+  };
+
+  // Stagger container
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  // Animate hero section
+  const heroHeadline = document.querySelector('.hero-headline');
+  const heroSubtitle = document.querySelector('.hero-subtitle');
+  const heroMockup = document.querySelector('.hero-mockup');
+  const navbarCapsule = document.querySelector('.navbar-capsule-sticky');
+
+  if (heroHeadline) {
+    Motion.animate(heroHeadline, fadeInUp.animate, { 
+      ...fadeInUp.transition,
+      delay: 0.2 
+    });
+  }
+
+  if (heroSubtitle) {
+    Motion.animate(heroSubtitle, fadeInUp.animate, { 
+      ...fadeInUp.transition,
+      delay: 0.3 
+    });
+  }
+
+  if (heroMockup) {
+    Motion.animate(heroMockup, scaleIn.animate, { 
+      ...scaleIn.transition,
+      delay: 0.4 
+    });
+  }
+
+  if (navbarCapsule) {
+    Motion.animate(navbarCapsule, {
+      opacity: [0, 1],
+      y: [-20, 0]
+    }, { 
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
+      delay: 0.1 
+    });
+  }
+
+  // Animate sections on scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const animateOnScroll = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        
+        Motion.animate(entry.target, flyInScale.animate, {
+          ...flyInScale.transition,
+          delay: 0.1
+        });
+      }
+    });
+  }, observerOptions);
+
+  // Observe all major sections
+  const sections = document.querySelectorAll('.installation-steps, .bento-grid, .benefit-item, .browser-card, .feature-item, section');
+  sections.forEach(section => {
+    if (section.getBoundingClientRect().top > window.innerHeight) {
+      Motion.animate(section, fadeInUp.initial, { duration: 0 });
+      animateOnScroll.observe(section);
+    }
+  });
+
+  // Animate cards in stagger
+  const featureCards = document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card');
+  featureCards.forEach((card, index) => {
+    if (card.getBoundingClientRect().top > window.innerHeight) {
+      Motion.animate(card, fadeInUp.initial, { duration: 0 });
+      
+      const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.dataset.animated) {
+            entry.target.dataset.animated = 'true';
+            
+            Motion.animate(entry.target, flyInScale.animate, {
+              ...flyInScale.transition,
+              delay: index * 0.1
+            });
+            
+            cardObserver.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      cardObserver.observe(card);
+    }
+  });
+
+  // Animate buttons with scale effect
+  const buttons = document.querySelectorAll('.btn-primary-3d, .btn-tertiary-3d-large, .download-btn-3d, .safari-btn');
+  buttons.forEach(button => {
+    button.addEventListener('mouseenter', () => {
+      Motion.animate(button, { scale: 1.05 }, { duration: 0.2 });
+    });
+    
+    button.addEventListener('mouseleave', () => {
+      Motion.animate(button, { scale: 1 }, { duration: 0.2 });
+    });
+  });
+
+  console.log('Framer Motion animations initialized');
+}
