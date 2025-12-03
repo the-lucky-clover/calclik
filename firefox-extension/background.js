@@ -86,12 +86,20 @@ function extractEvent(text) {
   // Generate title - extract only the event name, not description
   let titleText = text;
   
+  console.log('[TITLE] Processing text:', text.substring(0, 200));
+  
   // First, check for line breaks - title is typically on first line
   const firstLineMatch = titleText.match(/^([^\r\n]+)/);
+  console.log('[TITLE] First line match:', firstLineMatch ? firstLineMatch[1] : 'NONE');
+  
   if (firstLineMatch && firstLineMatch[1].trim()) {
     // Check if first line looks like a title (not too long, not starting with description words)
     const firstLine = firstLineMatch[1].trim();
     const descriptionStarters = /^(?:The event|This|Don't miss|Come|Register|RSVP|Bring|Please|All|Location:|Time:|Date:|Where:|When:)\b/i;
+    
+    console.log('[TITLE] First line:', firstLine);
+    console.log('[TITLE] Length:', firstLine.length, '< 150?', firstLine.length < 150);
+    console.log('[TITLE] Is description starter?', descriptionStarters.test(firstLine));
     
     if (firstLine.length < 150 && !descriptionStarters.test(firstLine)) {
       // First line is the title - use it directly without further processing
@@ -101,9 +109,12 @@ function extractEvent(text) {
         .replace(/[,.:;!?-]+$/, '')
         .trim()
         .substring(0, 100);
+      console.log('[TITLE] Using first line as title:', event.title);
       return event.title ? event : null;
     }
   }
+  
+  console.log('[TITLE] First line rejected, using fallback logic');
   
   // Fallback: If first line didn't work, extract from description text
   // Remove common prefixes
