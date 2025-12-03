@@ -19,7 +19,6 @@
       border: 2px solid rgba(0, 122, 255, 0.3);
     }
     .safari-btn:hover {
-      transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(0, 122, 255, 0.4);
     }
     .safari-icon {
@@ -62,11 +61,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
     }
     .btn-tertiary-3d-large:hover {
-      transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
     }
     .download-btn-3d.secondary {
@@ -77,7 +74,6 @@
     }
     .download-btn-3d.secondary:hover {
       background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
     }
     
     /* Beta Badge Styling */
@@ -91,7 +87,6 @@
       margin-left: 8px;
       vertical-align: super;
       box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
-      animation: pulse-glow 2s infinite;
     }
     
     .hero-beta-badge {
@@ -103,9 +98,7 @@
       border-radius: 8px;
       margin-left: 18px;
       vertical-align: top;
-      opacity: 0;
-      transform: scale(0.9);
-      animation: subtleScaleIn 0.4s ease 0.2s forwards;
+      opacity: 1;
       box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
     }
     
@@ -131,7 +124,6 @@
       align-items: center;
       justify-content: center;
       opacity: 0;
-      transition: all 0.3s ease;
     }
     
     .onboarding-screenshot:hover .screenshot-overlay {
@@ -188,14 +180,12 @@
       border-radius: 12px;
       padding: 1.5rem;
       margin-bottom: 1.5rem;
-      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
     
     .installation-steps .step:hover {
       border-color: rgba(0, 212, 255, 0.3);
-      transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0, 212, 255, 0.1);
     }
     
@@ -207,11 +197,10 @@
       width: 4px;
       height: 100%;
       background: linear-gradient(135deg, #00d4ff, #0099cc);
-      transition: all 0.3s ease;
     }
     
     .installation-steps .step:hover::before {
-      width: 8px;
+      width: 4px;
     }
     
     /* Professional Typography */
@@ -285,11 +274,9 @@
       background: rgba(0, 122, 255, 0.1);
       border-radius: 8px;
       border-left: 4px solid #007aff;
-      transition: all 0.3s ease;
     }
     
     .benefit-item:hover {
-      transform: translateY(-2px);
       background: rgba(0, 122, 255, 0.15);
     }
     
@@ -2189,7 +2176,6 @@
       z-index: 10000;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s ease;
     }
     
     .onboarding-modal.show {
@@ -2295,7 +2281,6 @@
       font-weight: 600;
       cursor: pointer;
       border: none;
-      transition: all 0.3s ease;
     }
     
     .btn-primary-3d {
@@ -2403,13 +2388,11 @@
       color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
       font-size: 0.9rem;
-      transition: all 0.3s ease;
       display: inline-block;
     }
 
     .footer-section ul li a:hover {
       color: var(--primary-color);
-      transform: translateX(5px);
     }
 
     .footer-bottom {
@@ -2442,7 +2425,6 @@
       border-radius: 8px;
       color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
-      transition: all 0.3s ease;
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
     }
@@ -2450,7 +2432,6 @@
     .social-link:hover {
       background: var(--primary-color);
       color: #000;
-      transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
     }
 
@@ -2476,7 +2457,6 @@
       padding: 2rem;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s ease;
     }
 
     .modal-overlay.show {
@@ -2495,12 +2475,9 @@
       -webkit-backdrop-filter: blur(20px);
       backdrop-filter: blur(20px);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      transform: translateY(50px);
-      transition: all 0.3s ease;
     }
 
     .modal-overlay.show .modal-container {
-      transform: translateY(0);
     }
 
     .modal-header {
@@ -2533,13 +2510,11 @@
       justify-content: center;
       color: rgba(255, 255, 255, 0.7);
       cursor: pointer;
-      transition: all 0.3s ease;
     }
 
     .modal-close:hover {
       background: rgba(255, 0, 0, 0.2);
       color: #ff4444;
-      transform: rotate(90deg);
     }
 
     .modal-close i {
@@ -2594,7 +2569,6 @@
       border-radius: 16px;
       padding: 2rem 1.5rem;
       text-align: center;
-      transition: all 0.3s ease;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
@@ -2611,7 +2585,6 @@
       height: 100%;
       background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
       opacity: 0;
-      transition: opacity 0.3s ease;
     }
 
     .browser-card:hover::before {
