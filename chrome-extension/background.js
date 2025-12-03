@@ -23,12 +23,29 @@ function extractEvent(text) {
   const urlRegex = /https?:\/\/[^\s<>"]+/gi;
   const urls = text.match(urlRegex) || [];
   
+  // Extract title first to remove it from description later
+  let extractedTitle = '';
+  const firstLineMatch = text.match(/^([^\r\n]+)/);
+  if (firstLineMatch && firstLineMatch[1].trim()) {
+    const firstLine = firstLineMatch[1].trim();
+    const descriptionStarters = /^(?:The event|This|Don't miss|Come|Register|RSVP|Bring|Please|All|Location:|Time:|Date:|Where:|When:)\b/i;
+    if (firstLine.length < 150 && !descriptionStarters.test(firstLine)) {
+      extractedTitle = firstLine;
+    }
+  }
+  
+  // Remove title from text for description
+  let descriptionText = text;
+  if (extractedTitle) {
+    descriptionText = text.substring(extractedTitle.length).trim();
+  }
+  
   const event = {
     title: '',
     date: '',
     time: '',
     location: '',
-    description: text.substring(0, 200) + (text.length > 200 ? '...' : ''),
+    description: descriptionText.substring(0, 200) + (descriptionText.length > 200 ? '...' : ''),
     url: urls.length > 0 ? urls[0] : ''
   };
   

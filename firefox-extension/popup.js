@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <p><strong>Date:</strong> ${event.date || 'N/A'}</p>
           <p><strong>Time:</strong> ${event.time || 'N/A'}</p>
           <p><strong>Location:</strong> ${event.location || 'N/A'}</p>
+          ${event.url ? `<p><strong>Link:</strong> <a href="${event.url}" target="_blank" style="color: #00cc6a; text-decoration: none;">${event.url}</a></p>` : ''}
           ${event.description ? `<p>${event.description}</p>` : ''}
           <button class="add-button" data-index="${index}">${buttonText}</button>
         `;

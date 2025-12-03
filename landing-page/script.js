@@ -1905,18 +1905,18 @@ function initializeAnimations() {
     rootMargin: '0px 0px -100px 0px'
   });
 
-  // Animate elements on page load with staggered timing - only once
-  const pageLoadElements = document.querySelectorAll('[data-motion]');
-  pageLoadElements.forEach((element, index) => {
-    if (!animatedElements.has(element)) {
-      animatedElements.add(element);
-      element.classList.add('motion-element');
-      const delay = index * 120; // Reduced stagger for smoother feel
-      setTimeout(() => {
-        element.classList.add('animate-in');
-      }, delay + 200); // Reduced initial delay
-    }
-  });
+  // Hero section animations disabled - elements now visible immediately
+  // const pageLoadElements = document.querySelectorAll('[data-motion]');
+  // pageLoadElements.forEach((element, index) => {
+  //   if (!animatedElements.has(element)) {
+  //     animatedElements.add(element);
+  //     element.classList.add('motion-element');
+  //     const delay = index * 120; // Reduced stagger for smoother feel
+  //     setTimeout(() => {
+  //       element.classList.add('animate-in');
+  //     }, delay + 200); // Reduced initial delay
+  //   }
+  // });
 
   // Observe elements for scroll-triggered animations
   const scrollElements = document.querySelectorAll('.animate-on-scroll, .feature-card-3d, .bento-grid > *');
@@ -1933,19 +1933,21 @@ function initializeAnimations() {
 }
 
 function initializeMaterializeAnimations() {
-  const materializeElements = document.querySelectorAll('.hero-logo, .hero-headline, .hero-subtitle');
-  materializeElements.forEach((element, index) => {
-    element.style.animationDelay = `${index * 200}ms`;
-    element.classList.add('animate-materialize');
-  });
+  // Hero animations disabled - elements now visible immediately
+  // const materializeElements = document.querySelectorAll('.hero-logo, .hero-headline, .hero-subtitle');
+  // materializeElements.forEach((element, index) => {
+  //   element.style.animationDelay = `${index * 200}ms`;
+  //   element.classList.add('animate-materialize');
+  // });
 }
 
 function initializeFlyInAnimations() {
-  const flyInElements = document.querySelectorAll('.hero-url-scanner, .hero-mockup');
-  flyInElements.forEach((element, index) => {
-    element.style.animationDelay = `${600 + (index * 300)}ms`;
-    element.classList.add('animate-fly-in');
-  });
+  // Hero animations disabled - elements now visible immediately
+  // const flyInElements = document.querySelectorAll('.hero-url-scanner, .hero-mockup');
+  // flyInElements.forEach((element, index) => {
+  //   element.style.animationDelay = `${600 + (index * 300)}ms`;
+  //   element.classList.add('animate-fly-in');
+  // });
 }
 
 // Enhanced micro-interactions
