@@ -9,17 +9,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   const settingsToggle = document.getElementById('settingsToggle');
   const themeToggle = document.getElementById('themeToggle');
   const languageSelect = document.getElementById('languageSelect');
+  const timezoneSelect = document.getElementById('timezoneSelect');
 
   // Load and apply locale/translations
   const currentLocale = await getCurrentLocale();
   languageSelect.value = currentLocale;
   applyTranslations(currentLocale);
+  
+  // Show/hide reset button based on language selection
+  function updateResetButtonVisibility() {
+    if (languageSelect.value !== 'en') {
+      resetSettingsBtn.classList.remove('hidden');
+    } else {
+      resetSettingsBtn.classList.add('hidden');
+    }
+  }
+  updateResetButtonVisibility();
 
   // Handle language selection change
   languageSelect.addEventListener('change', async (e) => {
     const newLocale = e.target.value;
     await saveLocale(newLocale);
     applyTranslations(newLocale);
+    updateResetButtonVisibility();
   });
 
   // Handle reset to default button (always resets to English)
@@ -30,8 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         calendarType: 'mac',
         dateFormat: 'iso',
         timeFormat: '12',
-        timezone: 'auto',
-        timezoneValue: '',
+        timezoneValue: 'auto',
         hasSelectedCalendar: false,
         theme: 'dark'
       });
@@ -124,15 +135,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
 
     // Get saved preferences
-    chrome.storage.sync.get(['calendarType', 'dateFormat', 'timeFormat', 'timezone', 'timezoneValue'], (result) => {
+    chrome.storage.sync.get(['calendarType', 'dateFormat', 'timeFormat', 'timezoneValue'], (result) => {
       const calendarType = result.calendarType || 'mac';
       const dateFormat = result.dateFormat || 'iso';
       const timeFormat = result.timeFormat || '12';
-      const timezone = result.timezone || 'auto';
-      const timezoneValue = result.timezoneValue || '';
+      const timezoneValue = result.timezoneValue || 'auto';
       
       // Store timezone info for calendar exports
-      window.userTimezone = timezone === 'manual' && timezoneValue ? timezoneValue : Intl.DateTimeFormat().resolvedOptions().timeZone;
+      window.userTimezone = timezoneValue === 'auto' ? Intl.DateTimeFormat().resolvedOptions().timeZone : timezoneValue;
       
       events.forEach((event, index) => {
         const eventDiv = document.createElement('div');
@@ -320,26 +330,12 @@ END:VCALENDAR`;
   const tzDisplay = document.getElementById('currentTimezone');
   if (tzDisplay) tzDisplay.textContent = currentTz;
 
-  // Toggle manual timezone input
-  const tzRadios = document.querySelectorAll('input[name="timezone"]');
-  const manualInput = document.getElementById('timezoneManualInput');
-  tzRadios.forEach(radio => {
-    radio.addEventListener('change', (e) => {
-      if (e.target.value === 'manual') {
-        manualInput.classList.remove('hidden');
-      } else {
-        manualInput.classList.add('hidden');
-      }
-    });
-  });
-
   // Load preferences (default to macOS Calendar, ISO date, 12-hour time, auto timezone)
-  chrome.storage.sync.get(['calendarType', 'dateFormat', 'timeFormat', 'timezone', 'timezoneValue', 'hasSelectedCalendar'], (result) => {
+  chrome.storage.sync.get(['calendarType', 'dateFormat', 'timeFormat', 'timezoneValue', 'hasSelectedCalendar'], (result) => {
     const calendarType = result.calendarType || 'mac';
     const dateFormat = result.dateFormat || 'iso';
     const timeFormat = result.timeFormat || '12';
-    const timezone = result.timezone || 'auto';
-    const timezoneValue = result.timezoneValue || '';
+    const timezoneValue = result.timezoneValue || 'auto';
     const hasSelected = result.hasSelectedCalendar || false;
     
     // Set the radio buttons
@@ -352,14 +348,8 @@ END:VCALENDAR`;
     const timeRadio = document.querySelector(`input[name="timeFormat"][value="${timeFormat}"]`);
     if (timeRadio) timeRadio.checked = true;
     
-    const tzRadio = document.querySelector(`input[name="timezone"][value="${timezone}"]`);
-    if (tzRadio) tzRadio.checked = true;
-    
-    if (timezone === 'manual' && manualInput) {
-      manualInput.classList.remove('hidden');
-      const tzInput = document.getElementById('timezoneValue');
-      if (tzInput) tzInput.value = timezoneValue;
-    }
+    // Set timezone dropdown
+    timezoneSelect.value = timezoneValue;
     
     // If user has already selected preferences, hide settings and auto-scan
     if (hasSelected) {
@@ -376,9 +366,8 @@ END:VCALENDAR`;
     const calendarRadio = document.querySelector('input[name="calendarType"]:checked');
     const dateRadio = document.querySelector('input[name="dateFormat"]:checked');
     const timeRadio = document.querySelector('input[name="timeFormat"]:checked');
-    const tzRadio = document.querySelector('input[name="timezone"]:checked');
     
-    if (!calendarRadio || !dateRadio || !timeRadio || !tzRadio) {
+    if (!calendarRadio || !dateRadio || !timeRadio) {
       alert('Please select all preferences');
       return;
     }
@@ -386,17 +375,15 @@ END:VCALENDAR`;
     const calendarType = calendarRadio.value;
     const dateFormat = dateRadio.value;
     const timeFormat = timeRadio.value;
-    const timezone = tzRadio.value;
-    const timezoneValue = timezone === 'manual' ? document.getElementById('timezoneValue').value : '';
+    const timezoneValue = timezoneSelect.value;
     const locale = languageSelect.value;
     
-    console.log('Saving preferences:', { calendarType, dateFormat, timeFormat, timezone, timezoneValue, locale });
+    console.log('Saving preferences:', { calendarType, dateFormat, timeFormat, timezoneValue, locale });
     
     chrome.storage.sync.set({ 
       calendarType: calendarType,
       dateFormat: dateFormat,
       timeFormat: timeFormat,
-      timezone: timezone,
       timezoneValue: timezoneValue,
       locale: locale,
       hasSelectedCalendar: true 

@@ -1688,34 +1688,46 @@ body {
   .navbar-capsule-sticky {
     top: 1rem;
     padding: 0.3rem;
-    min-width: 300px;
+    min-width: 280px;
+    max-width: calc(100% - 2rem);
     border-radius: 40px;
   }
   
   .nav-container-enhanced {
     padding: 0.3rem 0.5rem;
-    gap: 1rem;
+    gap: 0.75rem;
   }
   
   .logo-capsule-mask {
-    width: 100px;
-    height: 42px;
-    border-radius: 21px;
+    width: 90px;
+    height: 38px;
+    border-radius: 19px;
   }
   
   .logo-3d-wrapper {
-    width: 56.25px;
-    height: 22.5px;
+    width: 50px;
+    height: 20px;
   }
   
   .btn-download-enhanced {
-    min-width: 90px;
-    height: 28.5px;
-    font-size: 0.6rem;
+    min-width: 85px;
+    height: 26px;
+    font-size: 0.55rem;
+    padding: 0;
   }
   
   .btn-content-centered {
-    padding: 0.45rem 0.75rem;
+    padding: 0.4rem 0.65rem;
+    gap: 0.25rem;
+  }
+  
+  .btn-icon-centered {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .btn-text-centered {
+    font-size: 0.55rem;
   }
 
   /* Legacy navbar */
@@ -2544,6 +2556,49 @@ body {
 @media (max-width: 480px) {
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+  
+  /* Ultra compact navbar for mobile */
+  .navbar-capsule-sticky {
+    min-width: 260px;
+    max-width: calc(100% - 1rem);
+    padding: 0.25rem;
+  }
+  
+  .nav-container-enhanced {
+    padding: 0.25rem 0.4rem;
+    gap: 0.5rem;
+  }
+  
+  .logo-capsule-mask {
+    width: 80px;
+    height: 34px;
+  }
+  
+  .logo-3d-wrapper {
+    width: 45px;
+    height: 18px;
+  }
+  
+  .btn-download-enhanced {
+    min-width: 75px;
+    height: 24px;
+    font-size: 0.5rem;
+    border-radius: 17px;
+  }
+  
+  .btn-content-centered {
+    padding: 0.35rem 0.55rem;
+    gap: 0.2rem;
+  }
+  
+  .btn-icon-centered {
+    width: 9px;
+    height: 9px;
+  }
+  
+  .btn-text-centered {
+    font-size: 0.5rem;
   }
 }
 

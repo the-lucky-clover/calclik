@@ -1,10 +1,19 @@
 // Content script to scan page for events
 function scanForEvents() {
-  const bodyText = document.body.innerText;
+  // Check if there's selected text first
+  const selection = window.getSelection();
+  const selectedText = selection ? selection.toString().trim() : '';
+  
+  // If there's a selection, only scan that text
+  const bodyText = selectedText || document.body.innerText;
   const pageTitle = document.title;
   const pageUrl = window.location.href;
-
-  console.log('Scanning page:', pageTitle);
+  
+  if (selectedText) {
+    console.log('Scanning user selection:', selectedText.length, 'characters');
+  } else {
+    console.log('Scanning full page:', pageTitle);
+  }
   console.log('Body text length:', bodyText.length);
   console.log('First 500 chars:', bodyText.substring(0, 500));
 

@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     lucide.createIcons();
   }
   
+  // Initialize smart download button with browser detection
+  initializeSmartDownload();
+  
   // Download Now Button Click Handler
   const downloadBtn = document.querySelector('.download-now-btn');
   if (downloadBtn) {
@@ -1481,6 +1484,72 @@ async function handleUrlScan() {
       lucide.createIcons();
     }
   }
+}
+
+// Browser Detection and Smart Download
+function detectBrowser() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  
+  // Detect specific browsers
+  if (userAgent.includes('edg/')) {
+    return { name: 'edge', displayName: 'Edge', file: 'calclik-edge-extension.zip' };
+  } else if (userAgent.includes('brave')) {
+    return { name: 'brave', displayName: 'Brave', file: 'calclik-chrome-extension.zip' };
+  } else if (userAgent.includes('opr/') || userAgent.includes('opera')) {
+    return { name: 'opera', displayName: 'Opera', file: 'calclik-chrome-extension.zip' };
+  } else if (userAgent.includes('firefox')) {
+    return { name: 'firefox', displayName: 'Firefox', file: 'calclik-firefox-extension.xpi' };
+  } else if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
+    return { name: 'safari', displayName: 'Safari', file: 'calclik-safari-extension.zip' };
+  } else if (userAgent.includes('chrome')) {
+    return { name: 'chrome', displayName: 'Chrome', file: 'calclik-chrome-extension.zip' };
+  }
+  
+  // Default to Chrome if unknown
+  return { name: 'chrome', displayName: 'Chrome', file: 'calclik-chrome-extension.zip' };
+}
+
+function initializeSmartDownload() {
+  const downloadBtn = document.querySelector('.btn-download-enhanced');
+  if (!downloadBtn) return;
+  
+  const browser = detectBrowser();
+  
+  // Function to update button text based on screen size
+  const updateButtonText = () => {
+    const btnText = downloadBtn.querySelector('.btn-text-centered');
+    if (!btnText) return;
+    
+    if (window.innerWidth > 768) {
+      btnText.textContent = `Get for ${browser.displayName}`;
+    } else if (window.innerWidth > 480) {
+      btnText.textContent = `For ${browser.displayName}`;
+    } else {
+      btnText.textContent = 'Download';
+    }
+  };
+  
+  // Initial update
+  updateButtonText();
+  
+  // Update on resize
+  window.addEventListener('resize', updateButtonText);
+  
+  // Change onclick to direct download
+  downloadBtn.onclick = function() {
+    // Download the file
+    window.location.href = browser.file;
+    
+    // Track download
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'extension_download', {
+        'browser': browser.name,
+        'file': browser.file,
+        'event_category': 'download'
+      });
+    }
+    sendAnalytics(`download_${browser.name}`);
+  };
 }
 
 // Modal Functions
