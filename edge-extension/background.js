@@ -49,16 +49,34 @@ function extractEvent(text) {
     url: urls.length > 0 ? urls[0] : ''
   };
   
-  // Extract date
-  const dateMatch = text.match(/\b(\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2},?\s+\d{4})\b/i);
-  if (dateMatch) {
-    event.date = formatDate(dateMatch[0]);
+  // Extract date - support multiple formats (MM/DD/YYYY, DD/MM/YYYY, YYYY-MM-DD, Month DD YYYY, DD Month YYYY)
+  const datePatterns = [
+    /\b(\d{4}-\d{2}-\d{2})\b/i,  // ISO: 2026-02-01
+    /\b(\d{1,2}\/\d{1,2}\/\d{4})\b/i,  // MM/DD/YYYY or DD/MM/YYYY
+    /\b((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4})\b/i,  // Month DD, YYYY
+    /\b(\d{1,2}(?:st|nd|rd|th)?\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*,?\s+\d{4})\b/i  // DD Month YYYY
+  ];
+  
+  for (const pattern of datePatterns) {
+    const dateMatch = text.match(pattern);
+    if (dateMatch) {
+      event.date = formatDate(dateMatch[0]);
+      break;
+    }
   }
   
-  // Extract time
-  const timeMatch = text.match(/\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)?\b/i);
-  if (timeMatch) {
-    event.time = formatTime(timeMatch[0]);
+  // Extract time - support 12h and 24h formats with optional timezone
+  const timePatterns = [
+    /\b(\d{1,2}:\d{2})\s*(?:AM|PM|am|pm)?\s*(?:PST|EST|CST|MST|PDT|EDT|CDT|MDT|GMT|UTC|CET)?\b/i,
+    /\b(\d{1,2}:\d{2})\b/i
+  ];
+  
+  for (const pattern of timePatterns) {
+    const timeMatch = text.match(pattern);
+    if (timeMatch) {
+      event.time = formatTime(timeMatch[0]);
+      break;
+    }
   }
   
   // Extract location - look for various location patterns
