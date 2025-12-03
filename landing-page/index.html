@@ -25,6 +25,9 @@
     .safari-icon {
       background: linear-gradient(135deg, #007AFF, #5AC8FA);
     }
+    .edge-icon {
+      background: linear-gradient(135deg, #0078d4, #50e6ff);
+    }
     .beta-info {
       font-size: 0.9rem;
       color: #5AC8FA;
@@ -975,6 +978,13 @@
             </svg>
             Brave
           </button>
+          <button class="tab-btn" data-tab="edge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+              <path d="M12 6v12M6 12h12"/>
+            </svg>
+            Edge
+          </button>
         </div>
         
         <div class="tab-content">
@@ -1367,6 +1377,160 @@
                     <div class="benefit-content">
                       <h5>Faster Scanning</h5>
                       <p>Reduced page clutter improves event detection</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="edge-download" class="tab-pane">
+            <div class="download-card-3d">
+              <div class="card-glow"></div>
+              <div class="download-header">
+                <div class="browser-icon edge-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                    <path d="M12 6v12M6 12h12"/>
+                  </svg>
+                </div>
+                <div class="download-info">
+                  <h3>CALCLiK for Microsoft Edge</h3>
+                  <p>Compatible with Microsoft Edge (Chromium-based)</p>
+                </div>
+                <a href="calclik-edge-extension.zip" download="calclik-edge-extension.zip" class="download-btn-3d edge-download-trigger">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7,10 12,15 17,10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  Download&nbsp;Extension
+                </a>
+              </div>
+              
+              <div class="installation-steps">
+                <h4>🌊 Microsoft Edge Installation Guide</h4>
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <h5>📥 Download & Extract</h5>
+                    <p>Download the CALCLiK extension file and extract the ZIP to a folder on your computer</p>
+                    <div class="onboarding-screenshot">
+                      <div class="step-number-overlay">1</div>
+                      <div class="screenshot-mockup" style="background: linear-gradient(135deg, #0078d4, #50e6ff);">
+                        <div class="mockup-placeholder-center">
+                          <div class="mockup-icon-large">📁</div>
+                          <div>CALCLiK-edge-extension.zip</div>
+                          <div class="mockup-text-small">Extract to folder</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <h5>🌐 Open Edge Extensions</h5>
+                    <p>Navigate to <code>edge://extensions/</code> in your Microsoft Edge browser</p>
+                    <div class="onboarding-screenshot">
+                      <div class="step-number-overlay">2</div>
+                      <div class="screenshot-mockup" style="background: linear-gradient(135deg, #0078d4, #50e6ff);">
+                        <div class="mockup-placeholder-center">
+                          <div class="mockup-icon-medium">🔗</div>
+                          <div class="mockup-code-display">edge://extensions/</div>
+                          <div class="mockup-text-small">Address bar navigation</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <h5>⚙️ Enable Developer Mode</h5>
+                    <p>Toggle the Developer mode switch in the bottom-left corner of the extensions page</p>
+                    <div class="onboarding-screenshot">
+                      <div class="step-number-overlay">3</div>
+                      <div class="screenshot-mockup" style="background: linear-gradient(135deg, #0078d4, #50e6ff);">
+                        <div class="mockup-placeholder-center">
+                          <div class="mockup-icon-medium">⚙️</div>
+                          <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <span>Developer mode</span>
+                            <div style="width: 40px; height: 20px; background: #0078d4; border-radius: 10px; position: relative;">
+                              <div style="width: 16px; height: 16px; background: white; border-radius: 50%; position: absolute; right: 2px; top: 2px;"></div>
+                            </div>
+                          </div>
+                          <div class="mockup-text-small">Enable toggle switch</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <div class="step-content">
+                    <h5>📂 Load Unpacked Extension</h5>
+                    <p>Click "Load unpacked" and select the extracted CALCLiK folder</p>
+                    <div class="onboarding-screenshot">
+                      <div class="step-number-overlay">4</div>
+                      <div class="screenshot-mockup" style="background: linear-gradient(135deg, #0078d4, #50e6ff);">
+                        <div class="mockup-placeholder-center">
+                          <div class="mockup-icon-medium">📂</div>
+                          <div style="background: rgba(0,120,212,0.2); padding: 8px 16px; border-radius: 6px; border: 2px solid #0078d4;">Load unpacked</div>
+                          <div class="mockup-text-small">Select CALCLiK folder</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="step">
+                  <div class="step-number">5</div>
+                  <div class="step-content">
+                    <h5>🎯 Start Using CALCLiK</h5>
+                    <p>Click the CALCLiK icon in your browser toolbar to start finding events on any webpage</p>
+                    <div class="onboarding-screenshot">
+                      <div class="step-number-overlay">5</div>
+                      <div class="screenshot-mockup" style="background: linear-gradient(135deg, #0078d4, #50e6ff);">
+                        <div class="mockup-placeholder-center">
+                          <div class="mockup-icon-medium">🎯</div>
+                          <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #0078d4, #50e6ff); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">📅</div>
+                            <span>CALCLiK Extension Active</span>
+                          </div>
+                          <div class="mockup-text-small">Ready to scan events!</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="edge-features">
+                <h4>🌊 Why CALCLiK + Edge = Productivity Powerhouse</h4>
+                <div class="benefit-grid">
+                  <div class="benefit-item">
+                    <div class="benefit-icon">🔄</div>
+                    <div class="benefit-content">
+                      <h5>Cross-Device Sync</h5>
+                      <p>Seamless sync across Windows, macOS, and mobile</p>
+                    </div>
+                  </div>
+                  <div class="benefit-item">
+                    <div class="benefit-icon">🎯</div>
+                    <div class="benefit-content">
+                      <h5>Chromium Performance</h5>
+                      <p>Fast event detection with Chromium engine</p>
+                    </div>
+                  </div>
+                  <div class="benefit-item">
+                    <div class="benefit-icon">🏢</div>
+                    <div class="benefit-content">
+                      <h5>Enterprise Ready</h5>
+                      <p>Perfect for business users and Office 365 integration</p>
                     </div>
                   </div>
                 </div>
@@ -1909,6 +2073,19 @@
             // Show onboarding modal after short delay
             setTimeout(() => {
               showOnboardingModal('chrome');
+            }, 2000);
+          }
+        });
+      });
+      
+      document.querySelectorAll('.edge-download-trigger').forEach(button => {
+        button.addEventListener('click', function() {
+          if (!downloadTriggered) {
+            downloadTriggered = true;
+            
+            // Show onboarding modal after short delay
+            setTimeout(() => {
+              showOnboardingModal('edge');
             }, 2000);
           }
         });
