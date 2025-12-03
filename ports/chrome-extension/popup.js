@@ -128,11 +128,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
       }
 
+      const scanStartTime = performance.now();
       const events = processResult.events;
+      
       if (events.length === 0) {
         eventsDiv.innerHTML = '<p style="color: #b0b0b8; padding: 16px; text-align: center;">No events found on this page. Try a page with event listings or dates.</p>';
         return;
       }
+
+      // Show intelligence header and stats footer
+      const intelligenceHeader = document.getElementById('intelligenceHeader');
+      const settingsHeader = document.getElementById('settingsHeader');
+      const eventsContainer = document.getElementById('eventsContainer');
+      const statsFooter = document.getElementById('statsFooter');
+      
+      if (intelligenceHeader) {
+        intelligenceHeader.style.display = 'flex';
+        settingsHeader.style.display = 'none';
+      }
+      if (eventsContainer) eventsContainer.classList.remove('hidden');
+      if (statsFooter) statsFooter.classList.remove('hidden');
 
     // Get saved preferences
     chrome.storage.sync.get(['calendarType', 'dateFormat', 'timeFormat', 'timezoneValue'], (result) => {
@@ -144,9 +159,21 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Store timezone info for calendar exports
       window.userTimezone = timezoneValue === 'auto' ? Intl.DateTimeFormat().resolvedOptions().timeZone : timezoneValue;
       
+      // Calculate average confidence
+      let totalConfidence = 0;
+      
       events.forEach((event, index) => {
         const eventDiv = document.createElement('div');
-        eventDiv.className = 'event';
+        
+        // Determine category and confidence
+        const category = detectEventCategory(event);
+        const confidence = calculateConfidence(event);
+        totalConfidence += confidence;
+        
+        const confidenceLevel = confidence >= 90 ? 'high' : confidence >= 70 ? 'med' : 'low';
+        const confidenceLabel = confidence >= 90 ? 'HIGH' : confidence >= 70 ? 'MED' : 'LOW';
+        
+        eventDiv.className = `event-card ${category}`;
         
         // Format date based on preference
         const formattedDate = formatDateDisplay(event.date, dateFormat);
@@ -154,27 +181,72 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Format time based on preference
         const formattedTime = formatTimeDisplay(event.time, timeFormat);
         
-        // Determine button text based on calendar type
-        let buttonText = 'Add to Calendar';
-        if (calendarType === 'google') buttonText = 'Add to Google Calendar';
-        if (calendarType === 'outlook') buttonText = 'Add to Outlook';
+        // Generate category icon
+        const categoryIcon = getCategoryIcon(category);
+        
+        // Generate auto tags
+        const tags = generateEventTags(event, category);
         
         eventDiv.innerHTML = `
-          <h4>${event.title || 'Event ' + (index + 1)}</h4>
-          ${formattedDate && formattedDate !== 'N/A' ? `<p><strong>📅 Date:</strong> ${formattedDate}</p>` : ''}
-          ${formattedTime && formattedTime !== 'N/A' ? `<p><strong>🕐 Time:</strong> ${formattedTime}</p>` : ''}
-          ${event.location ? `<p><strong>📍 Location:</strong> ${event.location}</p>` : ''}
-          ${event.url ? `<p><strong>🔗 Link:</strong> <a href="${event.url}" target="_blank" style="color: #00cc6a; text-decoration: none; word-break: break-all;">${event.url}</a></p>` : ''}
-          ${event.description ? `<p style="margin-top: 12px; color: var(--text-secondary);">${event.description}</p>` : ''}
-          <button class="add-button" data-index="${index}">${buttonText}</button>
+          <div class="confidence-badge">
+            <span class="confidence-level ${confidenceLevel}">${confidenceLabel}</span>
+            <span class="confidence-percent">${confidence.toFixed(1)}%</span>
+          </div>
+          
+          <div class="event-header">
+            <div class="event-icon">${categoryIcon}</div>
+            <div class="event-info">
+              <h3 class="event-title">${event.title || 'Event ' + (index + 1)}</h3>
+              <div class="event-meta">
+                ${formattedDate && formattedDate !== 'N/A' ? `
+                  <div class="event-meta-row">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/></svg>
+                    <span>${formattedDate} ${formattedTime && formattedTime !== 'N/A' ? '— ' + formattedTime : ''}</span>
+                  </div>
+                ` : ''}
+                ${event.location ? `
+                  <div class="event-meta-row">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                    <span>${event.location}</span>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+          
+          ${tags.length > 0 ? `
+            <div class="event-tags">
+              ${tags.map(tag => `<span class="event-tag">${tag}</span>`).join('')}
+            </div>
+          ` : ''}
+          
+          <div class="event-actions">
+            <button class="action-button add-calendar-btn" data-index="${index}">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/></svg>
+              Add
+            </button>
+            <button class="action-button share-btn" data-index="${index}">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/></svg>
+            </button>
+          </div>
         `;
         eventsDiv.appendChild(eventDiv);
       });
       
+      // Update stats
+      const avgConfidence = totalConfidence / events.length;
+      const scanEndTime = performance.now();
+      const scanTime = ((scanEndTime - scanStartTime) / 1000).toFixed(1);
+      
+      document.getElementById('eventCountDisplay').textContent = events.length;
+      document.getElementById('statsEventsFound').textContent = events.length;
+      document.getElementById('statsAvgConfidence').textContent = avgConfidence.toFixed(0) + '%';
+      document.getElementById('statsScanTime').textContent = scanTime + 's';
+      
       // Store events and add click handlers
       window.currentEvents = events;
       
-      document.querySelectorAll('.add-button').forEach(btn => {
+      document.querySelectorAll('.add-calendar-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const index = parseInt(e.target.dataset.index);
           const event = window.currentEvents[index];
@@ -187,6 +259,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           } else if (calendarType === 'outlook') {
             addToOutlook(event);
           }
+        });
+      });
+      
+      // Add share button handlers
+      document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = parseInt(e.target.dataset.index);
+          const event = window.currentEvents[index];
+          shareEvent(event);
         });
       });
     });
@@ -323,6 +404,81 @@ END:VCALENDAR`;
     } catch {
       return timeStr;
     }
+  }
+
+  // Detect event category based on keywords
+  function detectEventCategory(event) {
+    const text = `${event.title} ${event.description} ${event.location}`.toLowerCase();
+    
+    if (text.match(/\b(tech|ai|ml|summit|conference|hackathon|coding|developer|software|digital)\b/)) return 'tech';
+    if (text.match(/\b(art|exhibition|gallery|museum|painting|sculpture|artist)\b/)) return 'art';
+    if (text.match(/\b(music|concert|jazz|rock|festival|band|live|performance)\b/)) return 'music';
+    if (text.match(/\b(business|meeting|corporate|networking|seminar|workshop)\b/)) return 'business';
+    if (text.match(/\b(sport|game|match|championship|tournament|fitness)\b/)) return 'sport';
+    if (text.match(/\b(culture|cultural|theater|theatre|opera|ballet)\b/)) return 'culture';
+    if (text.match(/\b(food|restaurant|dining|cuisine|culinary|tasting)\b/)) return 'food';
+    
+    return 'general';
+  }
+  
+  // Calculate confidence score
+  function calculateConfidence(event) {
+    let score = 50; // Base score
+    
+    if (event.title && event.title.length > 5) score += 20;
+    if (event.date) score += 15;
+    if (event.time) score += 10;
+    if (event.location) score += 15;
+    if (event.description && event.description.length > 20) score += 10;
+    if (event.url) score += 5;
+    
+    // Cap at 99.9%
+    return Math.min(score, 99.9);
+  }
+  
+  // Get category icon emoji
+  function getCategoryIcon(category) {
+    const icons = {
+      tech: '💻',
+      art: '🎨',
+      music: '🎵',
+      business: '💼',
+      sport: '⚽',
+      culture: '🎭',
+      food: '🍽️',
+      general: '📅'
+    };
+    return icons[category] || '📅';
+  }
+  
+  // Generate auto tags for events
+  function generateEventTags(event, category) {
+    const tags = [];
+    const text = `${event.title} ${event.description}`.toLowerCase();
+    
+    // Category tag
+    tags.push(category.charAt(0).toUpperCase() + category.slice(1));
+    
+    // Detect additional tags based on keywords
+    if (text.match(/\b(conference|summit)\b/)) tags.push('Conference');
+    if (text.match(/\b(live|performance)\b/)) tags.push('Live');
+    if (text.match(/\b(free|complimentary)\b/)) tags.push('Free');
+    if (text.match(/\b(online|virtual|zoom|webinar)\b/)) tags.push('Online');
+    if (text.match(/\b(workshop|training)\b/)) tags.push('Workshop');
+    
+    return tags.slice(0, 3); // Limit to 3 tags
+  }
+  
+  // Share event (copy to clipboard)
+  function shareEvent(event) {
+    const shareText = `${event.title}\n📅 ${event.date}${event.time ? ' at ' + event.time : ''}\n📍 ${event.location || 'TBA'}${event.url ? '\n🔗 ' + event.url : ''}`;
+    
+    navigator.clipboard.writeText(shareText).then(() => {
+      // Show brief confirmation (you could add a toast notification here)
+      console.log('Event copied to clipboard');
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+    });
   }
 
   // Display current timezone
