@@ -227,6 +227,43 @@
       margin-top: 8px;
     }
     
+    .language-select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(176, 176, 184, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      appearance: none;
+      background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M1 1L6 6L11 1" stroke="%2300ff88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+    
+    .language-select:hover {
+      border-color: var(--accent-primary);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    
+    .language-select:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+    }
+    
+    .language-select option {
+      background: #1a1a24;
+      color: var(--text-primary);
+      padding: 10px;
+    }
+    
     .radio-option {
       display: flex;
       align-items: center;
@@ -469,6 +506,34 @@
         inset 0 2px 6px rgba(0, 0, 0, 0.3);
     }
     
+    .reset-button {
+      width: 100%;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, rgba(255, 59, 48, 0.15) 0%, rgba(255, 69, 58, 0.1) 100%);
+      color: #ff453a;
+      border: 1px solid rgba(255, 69, 58, 0.3);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+      letter-spacing: -0.01em;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    }
+    
+    .reset-button:hover {
+      background: linear-gradient(135deg, rgba(255, 59, 48, 0.25) 0%, rgba(255, 69, 58, 0.2) 100%);
+      border-color: rgba(255, 69, 58, 0.5);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 69, 58, 0.3);
+    }
+    
+    .reset-button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(255, 69, 58, 0.2);
+    }
+    
     .settings-toggle {
       display: block;
       text-align: center;
@@ -548,84 +613,148 @@
   </div>
   
   <div id="settingsSection" class="settings-section">
-    <h4>Calendar Settings</h4>
+    <h4 data-i18n="settingsTitle">Calendar Settings</h4>
     
     <div class="settings-group">
-      <label class="settings-label">Default Calendar</label>
+      <label class="settings-label" data-i18n="language">Language</label>
+      <select id="languageSelect" class="language-select" title="Select language">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+        <option value="pt">Português</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+        <option value="hi">हिन्दी</option>
+        <option value="it">Italiano</option>
+        <option value="ko">한국어</option>
+        <option value="nl">Nederlands</option>
+        <option value="pl">Polski</option>
+        <option value="tr">Türkçe</option>
+        <option value="sv">Svenska</option>
+        <option value="da">Dansk</option>
+        <option value="fi">Suomi</option>
+        <option value="no">Norsk</option>
+        <option value="cs">Čeština</option>
+        <option value="el">Ελληνικά</option>
+        <option value="he">עברית</option>
+        <option value="th">ไทย</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="ms">Bahasa Melayu</option>
+        <option value="uk">Українська</option>
+        <option value="ro">Română</option>
+        <option value="hu">Magyar</option>
+        <option value="hr">Hrvatski</option>
+        <option value="sr">Српски</option>
+        <option value="bg">Български</option>
+        <option value="sk">Slovenčina</option>
+        <option value="sl">Slovenščina</option>
+        <option value="lt">Lietuvių</option>
+        <option value="lv">Latviešu</option>
+        <option value="et">Eesti</option>
+        <option value="fa">فارسی</option>
+        <option value="bn">বাংলা</option>
+        <option value="ta">தமிழ்</option>
+        <option value="te">తెలుగు</option>
+        <option value="mr">मराठी</option>
+        <option value="ur">اردو</option>
+        <option value="sw">Kiswahili</option>
+        <option value="af">Afrikaans</option>
+        <option value="ca">Català</option>
+        <option value="eu">Euskara</option>
+        <option value="gl">Galego</option>
+        <option value="is">Íslenska</option>
+        <option value="ga">Gaeilge</option>
+        <option value="cy">Cymraeg</option>
+        <option value="mt">Malti</option>
+        <option value="sq">Shqip</option>
+        <option value="mk">Македонски</option>
+        <option value="az">Azərbaycan</option>
+        <option value="kk">Қазақ</option>
+      </select>
+    </div>
+    
+    <div class="settings-group">
+      <label class="settings-label" data-i18n="defaultCalendar">Default Calendar</label>
       <div class="radio-group">
         <div class="radio-option">
           <input type="radio" id="calMac" name="calendarType" value="mac">
-          <label for="calMac">macOS Calendar (.ics)</label>
+          <label for="calMac" data-i18n="macCalendar">macOS Calendar (.ics)</label>
         </div>
         <div class="radio-option">
           <input type="radio" id="calGoogle" name="calendarType" value="google">
-          <label for="calGoogle">Google Calendar</label>
+          <label for="calGoogle" data-i18n="googleCalendar">Google Calendar</label>
         </div>
         <div class="radio-option">
           <input type="radio" id="calOutlook" name="calendarType" value="outlook">
-          <label for="calOutlook">Outlook Calendar</label>
+          <label for="calOutlook" data-i18n="outlookCalendar">Outlook Calendar</label>
         </div>
       </div>
     </div>
 
     <div class="settings-group">
-      <label class="settings-label">Date Format</label>
+      <label class="settings-label" data-i18n="dateFormat">Date Format</label>
       <div class="radio-group">
         <div class="radio-option">
           <input type="radio" id="dateUS" name="dateFormat" value="us">
-          <label for="dateUS">MM/DD/YYYY (US)</label>
+          <label for="dateUS" data-i18n="dateUS">MM/DD/YYYY (US)</label>
         </div>
         <div class="radio-option">
           <input type="radio" id="dateEU" name="dateFormat" value="eu">
-          <label for="dateEU">DD/MM/YYYY (EU)</label>
+          <label for="dateEU" data-i18n="dateEU">DD/MM/YYYY (EU)</label>
         </div>
         <div class="radio-option">
           <input type="radio" id="dateISO" name="dateFormat" value="iso">
-          <label for="dateISO">YYYY-MM-DD (ISO)</label>
+          <label for="dateISO" data-i18n="dateISO">YYYY-MM-DD (ISO)</label>
         </div>
       </div>
     </div>
 
     <div class="settings-group">
-      <label class="settings-label">Time Format</label>
+      <label class="settings-label" data-i18n="timeFormat">Time Format</label>
       <div class="radio-group">
         <div class="radio-option">
           <input type="radio" id="time12" name="timeFormat" value="12">
-          <label for="time12">12-hour (3:00 PM)</label>
+          <label for="time12" data-i18n="time12">12-hour (3:00 PM)</label>
         </div>
         <div class="radio-option">
           <input type="radio" id="time24" name="timeFormat" value="24">
-          <label for="time24">24-hour (15:00)</label>
+          <label for="time24" data-i18n="time24">24-hour (15:00)</label>
         </div>
       </div>
     </div>
 
     <div class="settings-group">
-      <label class="settings-label">Timezone</label>
+      <label class="settings-label" data-i18n="timezone">Timezone</label>
       <div class="radio-group">
         <div class="radio-option">
           <input type="radio" id="tzAuto" name="timezone" value="auto">
-          <label for="tzAuto">Auto-detect</label>
+          <label for="tzAuto" data-i18n="tzAuto">Auto-detect</label>
         </div>
         <div class="radio-option">
           <input type="radio" id="tzManual" name="timezone" value="manual">
-          <label for="tzManual">Manual</label>
+          <label for="tzManual" data-i18n="tzManual">Manual</label>
         </div>
       </div>
       <div id="timezoneManualInput" class="timezone-input-container hidden">
-        <input type="text" id="timezoneValue" class="timezone-input" placeholder="e.g., America/New_York, Europe/London">
-        <p class="timezone-hint">Current auto-detected: <span id="currentTimezone"></span></p>
+        <input type="text" id="timezoneValue" class="timezone-input" data-i18n-placeholder="tzPlaceholder" placeholder="e.g., America/New_York, Europe/London">
+        <p class="timezone-hint"><span data-i18n="tzCurrent">Current auto-detected:</span> <span id="currentTimezone"></span></p>
       </div>
     </div>
     
-    <button id="saveSettings" class="save-button">Save & Continue</button>
+    <button id="saveSettings" class="save-button" data-i18n="saveButton">Save & Continue</button>
+    <button id="resetSettings" class="reset-button">Reset to Default (English)</button>
   </div>
   
   <div id="loading" class="loading hidden">Scanning for events...</div>
   <div id="events"></div>
   
-  <a id="settingsToggle" class="settings-toggle hidden">⚙️ Change Calendar Settings</a>
+  <a id="settingsToggle" class="settings-toggle hidden" data-i18n="changeSettings">⚙️ Change Calendar Settings</a>
   
+  <script src="translations.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

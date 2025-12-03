@@ -1,12 +1,43 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const loading = document.getElementById('loading');
   const eventsDiv = document.getElementById('events');
   const settingsSection = document.getElementById('settingsSection');
   const calendarRadios = document.querySelectorAll('input[name="calendarType"]');
 
   const saveSettingsBtn = document.getElementById('saveSettings');
+  const resetSettingsBtn = document.getElementById('resetSettings');
   const settingsToggle = document.getElementById('settingsToggle');
   const themeToggle = document.getElementById('themeToggle');
+  const languageSelect = document.getElementById('languageSelect');
+
+  // Load and apply locale/translations
+  const currentLocale = await getCurrentLocale();
+  languageSelect.value = currentLocale;
+  applyTranslations(currentLocale);
+
+  // Handle language selection change
+  languageSelect.addEventListener('change', async (e) => {
+    const newLocale = e.target.value;
+    await saveLocale(newLocale);
+    applyTranslations(newLocale);
+  });
+
+  // Handle reset to default button (always resets to English)
+  resetSettingsBtn.addEventListener('click', async () => {
+    if (confirm('Reset all settings to default (English)? This will refresh the extension.')) {
+      await chrome.storage.sync.set({
+        locale: 'en',
+        calendarType: 'mac',
+        dateFormat: 'iso',
+        timeFormat: '12',
+        timezone: 'auto',
+        timezoneValue: '',
+        hasSelectedCalendar: false,
+        theme: 'dark'
+      });
+      location.reload();
+    }
+  });
 
   // Load and apply theme preference
   chrome.storage.sync.get(['theme'], (result) => {
@@ -357,8 +388,9 @@ END:VCALENDAR`;
     const timeFormat = timeRadio.value;
     const timezone = tzRadio.value;
     const timezoneValue = timezone === 'manual' ? document.getElementById('timezoneValue').value : '';
+    const locale = languageSelect.value;
     
-    console.log('Saving preferences:', { calendarType, dateFormat, timeFormat, timezone, timezoneValue });
+    console.log('Saving preferences:', { calendarType, dateFormat, timeFormat, timezone, timezoneValue, locale });
     
     chrome.storage.sync.set({ 
       calendarType: calendarType,
@@ -366,6 +398,7 @@ END:VCALENDAR`;
       timeFormat: timeFormat,
       timezone: timezone,
       timezoneValue: timezoneValue,
+      locale: locale,
       hasSelectedCalendar: true 
     }, () => {
       console.log('Preferences saved');
