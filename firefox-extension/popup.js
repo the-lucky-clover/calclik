@@ -92,13 +92,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-    // Get saved calendar preference
-    chrome.storage.sync.get(['calendarType'], (result) => {
+    // Get saved preferences
+    chrome.storage.sync.get(['calendarType', 'dateFormat', 'timeFormat'], (result) => {
       const calendarType = result.calendarType || 'mac';
+      const dateFormat = result.dateFormat || 'iso';
+      const timeFormat = result.timeFormat || '12';
       
       events.forEach((event, index) => {
         const eventDiv = document.createElement('div');
         eventDiv.className = 'event';
+        
+        // Format date based on preference
+        const formattedDate = formatDateDisplay(event.date, dateFormat);
+        
+        // Format time based on preference
+        const formattedTime = formatTimeDisplay(event.time, timeFormat);
         
         // Determine button text based on calendar type
         let buttonText = 'Add to Calendar';
@@ -107,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         eventDiv.innerHTML = `
           <h4>${event.title || 'Event ' + (index + 1)}</h4>
-          <p><strong>Date:</strong> ${event.date || 'N/A'}</p>
-          <p><strong>Time:</strong> ${event.time || 'N/A'}</p>
+          <p><strong>Date:</strong> ${formattedDate || 'N/A'}</p>
+          <p><strong>Time:</strong> ${formattedTime || 'N/A'}</p>
           <p><strong>Location:</strong> ${event.location || 'N/A'}</p>
           ${event.url ? `<p><strong>Link:</strong> <a href="${event.url}" target="_blank" style="color: #00cc6a; text-decoration: none;">${event.url}</a></p>` : ''}
           ${event.description ? `<p>${event.description}</p>` : ''}
@@ -228,16 +236,67 @@ END:VCALENDAR`;
     URL.revokeObjectURL(url);
   }
 
-  // Load calendar preference (default to macOS Calendar)
-  chrome.storage.sync.get(['calendarType', 'hasSelectedCalendar'], (result) => {
+  // Format date based on user preference
+  function formatDateDisplay(dateStr, format) {
+    if (!dateStr) return 'N/A';
+    try {
+      const date = new Date(dateStr);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      
+      switch (format) {
+        case 'us':
+          return `${month}/${day}/${year}`;
+        case 'eu':
+          return `${day}/${month}/${year}`;
+        case 'iso':
+        default:
+          return `${year}-${month}-${day}`;
+      }
+    } catch {
+      return dateStr;
+    }
+  }
+
+  // Format time based on user preference
+  function formatTimeDisplay(timeStr, format) {
+    if (!timeStr) return 'N/A';
+    try {
+      // timeStr is in 24h format HH:MM
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      
+      if (format === '24') {
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+      } else {
+        // Convert to 12-hour format
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const hours12 = hours % 12 || 12;
+        return `${hours12}:${String(minutes).padStart(2, '0')} ${period}`;
+      }
+    } catch {
+      return timeStr;
+    }
+  }
+
+  // Load preferences (default to macOS Calendar, ISO date, 12-hour time)
+  chrome.storage.sync.get(['calendarType', 'dateFormat', 'timeFormat', 'hasSelectedCalendar'], (result) => {
     const calendarType = result.calendarType || 'mac';
+    const dateFormat = result.dateFormat || 'iso';
+    const timeFormat = result.timeFormat || '12';
     const hasSelected = result.hasSelectedCalendar || false;
     
-    // Set the radio button
-    const radio = document.querySelector(`input[value="${calendarType}"]`);
-    if (radio) radio.checked = true;
+    // Set the radio buttons
+    const calRadio = document.querySelector(`input[name="calendarType"][value="${calendarType}"]`);
+    if (calRadio) calRadio.checked = true;
     
-    // If user has already selected a calendar, hide settings and auto-scan
+    const dateRadio = document.querySelector(`input[name="dateFormat"][value="${dateFormat}"]`);
+    if (dateRadio) dateRadio.checked = true;
+    
+    const timeRadio = document.querySelector(`input[name="timeFormat"][value="${timeFormat}"]`);
+    if (timeRadio) timeRadio.checked = true;
+    
+    // If user has already selected preferences, hide settings and auto-scan
     if (hasSelected) {
       settingsSection.classList.add('hidden');
       settingsToggle.classList.remove('hidden');
@@ -245,25 +304,32 @@ END:VCALENDAR`;
     }
   });
 
-  // Save calendar preference when save button is clicked
+  // Save preferences when save button is clicked
   saveSettingsBtn.addEventListener('click', () => {
     console.log('Save button clicked');
-    const selectedRadio = document.querySelector('input[name="calendarType"]:checked');
-    console.log('Selected radio:', selectedRadio);
     
-    if (!selectedRadio) {
-      alert('Please select a calendar type');
+    const calendarRadio = document.querySelector('input[name="calendarType"]:checked');
+    const dateRadio = document.querySelector('input[name="dateFormat"]:checked');
+    const timeRadio = document.querySelector('input[name="timeFormat"]:checked');
+    
+    if (!calendarRadio || !dateRadio || !timeRadio) {
+      alert('Please select all preferences');
       return;
     }
     
-    const calendarType = selectedRadio.value;
-    console.log('Calendar type:', calendarType);
+    const calendarType = calendarRadio.value;
+    const dateFormat = dateRadio.value;
+    const timeFormat = timeRadio.value;
+    
+    console.log('Saving preferences:', { calendarType, dateFormat, timeFormat });
     
     chrome.storage.sync.set({ 
       calendarType: calendarType,
+      dateFormat: dateFormat,
+      timeFormat: timeFormat,
       hasSelectedCalendar: true 
     }, () => {
-      console.log('Calendar preference saved:', calendarType);
+      console.log('Preferences saved');
       // Hide settings, show toggle, and start scanning
       settingsSection.classList.add('hidden');
       settingsToggle.classList.remove('hidden');

@@ -155,8 +155,8 @@
     }
     
     .settings-section h4 {
-      margin: 0 0 16px 0;
-      font-size: 14px;
+      margin: 0 0 20px 0;
+      font-size: 16px;
       font-weight: 700;
       color: var(--accent-primary);
       text-transform: uppercase;
@@ -173,6 +173,19 @@
     
     #settingsSection.hidden + #loading.hidden + #events:empty ~ .settings-toggle {
       margin-top: 0;
+    }
+    
+    .settings-group {
+      margin-bottom: 24px;
+    }
+    
+    .settings-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
     }
     
     .radio-group {
@@ -512,21 +525,58 @@
   </div>
   
   <div id="settingsSection" class="settings-section">
-    <h4>Default Calendar</h4>
-    <div class="radio-group">
-      <div class="radio-option">
-        <input type="radio" id="calMac" name="calendarType" value="mac">
-        <label for="calMac">macOS Calendar (.ics download)</label>
-      </div>
-      <div class="radio-option">
-        <input type="radio" id="calGoogle" name="calendarType" value="google">
-        <label for="calGoogle">Google Calendar</label>
-      </div>
-      <div class="radio-option">
-        <input type="radio" id="calOutlook" name="calendarType" value="outlook">
-        <label for="calOutlook">Outlook Calendar</label>
+    <h4>Calendar Settings</h4>
+    
+    <div class="settings-group">
+      <label class="settings-label">Default Calendar</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="calMac" name="calendarType" value="mac">
+          <label for="calMac">macOS Calendar (.ics)</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="calGoogle" name="calendarType" value="google">
+          <label for="calGoogle">Google Calendar</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="calOutlook" name="calendarType" value="outlook">
+          <label for="calOutlook">Outlook Calendar</label>
+        </div>
       </div>
     </div>
+
+    <div class="settings-group">
+      <label class="settings-label">Date Format</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="dateUS" name="dateFormat" value="us">
+          <label for="dateUS">MM/DD/YYYY (US)</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="dateEU" name="dateFormat" value="eu">
+          <label for="dateEU">DD/MM/YYYY (EU)</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="dateISO" name="dateFormat" value="iso">
+          <label for="dateISO">YYYY-MM-DD (ISO)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <label class="settings-label">Time Format</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="time12" name="timeFormat" value="12">
+          <label for="time12">12-hour (3:00 PM)</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="time24" name="timeFormat" value="24">
+          <label for="time24">24-hour (15:00)</label>
+        </div>
+      </div>
+    </div>
+    
     <button id="saveSettings" class="save-button">Save & Continue</button>
   </div>
   
